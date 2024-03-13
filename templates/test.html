@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Cards</title>
+    <style>
+                :root {
+          --card-height: 300px;
+          --card-width: calc(var(--card-height) / 1.5);
+        }
+        * {
+          box-sizing: border-box;
+        }
+        body {
+          width: 100vw;
+          height: 100vh;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #2c3338;
+        }
+        .card {
+          width: var(--card-width);
+          height: var(--card-height);
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          padding: 0 36px;
+          perspective: 2500px;
+          margin: 0 50px;
+        }
+        .title-above {
+          position: absolute;
+          top: -40px; /* Adjust this value to move the title up or down */
+          left: 50%;
+          transform: translateX(-50%);
+          color: white; /* Change the color if needed */
+          font-size: 24px; /* Adjust font size here */
+          z-index: 10;
+        }
+
+        .cover-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .wrapper {
+          transition: all 0.5s;
+          position: absolute;
+          width: 100%;
+          z-index: -1;
+        }
+
+        .card:hover .wrapper {
+          transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+          box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+          -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+          -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+        }
+
+        .wrapper::before,
+        .wrapper::after {
+          content: "";
+          opacity: 0;
+          width: 100%;
+          height: 80px;
+          transition: all 0.5s;
+          position: absolute;
+          left: 0;
+        }
+        .wrapper::before {
+          top: 0;
+          height: 100%;
+          background-image: linear-gradient(
+            to top,
+            transparent 46%,
+            rgba(12, 13, 19, 0.5) 68%,
+            rgba(12, 13, 19) 97%
+          );
+        }
+        .wrapper::after {
+          bottom: 0;
+          opacity: 1;
+          background-image: linear-gradient(
+            to bottom,
+            transparent 46%,
+            rgba(12, 13, 19, 0.5) 68%,
+            rgba(12, 13, 19) 97%
+          );
+        }
+
+        .card:hover .wrapper::before,
+        .wrapper::after {
+          opacity: 1;
+        }
+
+        .card:hover .wrapper::after {
+          height: 120px;
+        }
+        .title {
+          width: 100%;
+          transition: transform 0.5s;
+        }
+        .card:hover .title {
+          transform: translate3d(0%, -50px, 100px);
+        }
+        .page-title {
+            position: absolute;
+            top: 10px; /* Adjust top as needed */
+            left: 10px; /* Adjust left as needed */
+            color: grey; /* Change the color if needed */
+            font-size: 36px; /* Adjust font size here */
+            font-family: 'Arial', sans-serif; /* Change the font family if needed */
+            z-index: 20;
+            font-weight: bold;
+        }
+        .character {
+          width: 100%;
+          opacity: 0;
+          transition: all 0.5s;
+          position: absolute;
+          z-index: -1;
+        }
+
+        .card:hover .character {
+          opacity: 1;
+          transform: translate3d(0%, -30%, 100px);
+        }
+
+    </style>
+    <!-- Include Vue.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+    <!-- Your HTML code --><div class="page-title">BraveSpeakAR</div> <!-- Here is your new title -->
+        <a href="{{ url_for('login') }}" alt="Doctor" target="_blank">
+          <div class="card">
+            <div class="title-above">Doctor</div>
+            <div class="wrapper">
+              <img src="https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1710201600&semt=sph" class="cover-image" />
+            </div>
+            <img src="https://cdn1.iconfinder.com/data/icons/basic-doctor-poses-and-postures/237/doctor-standing-005-512.png" class="character" />
+          </div>
+        </a>
+
+        <a href="{{ url_for('login') }}" alt="Patient" target="_blank">
+          <div class="card">
+            <div class="title-above">Patient</div>
+            <div class="wrapper">
+              <img src="https://jacksonvillefreepress.com/wp-content/uploads/2016/06/StressedBlackMan.jpg" class="cover-image" />
+            </div>
+            <img src="https://cdn4.iconfinder.com/data/icons/virtual-reality-headsets-and-gaming-equipment/237/virtual-reality-game-gaming-headset-003-512.png" class="character" />
+          </div>
+        </a>
+
+    <script>
+        /* Your JavaScript (Vue.js) code */
+    </script>
+</body>
+</html>
