@@ -32,20 +32,20 @@ def login():
     else:
         return render_template('index.html')
 
-# @app.route('/login/doctors', methods=['GET', 'POST'])
-# def login():
-#     if request.method == 'POST':
-#         users = mongo.db.doctors
-#         login_user = users.find_one({'name': request.form['username']})
-#
-#         if login_user:
-#             input_password = hashlib.sha256(request.form['pass'].encode('utf-8')).hexdigest()
-#             if input_password == login_user['password']:
-#                 session['username'] = request.form['username']
-#                 return redirect(url_for('homepage'))  # Redirect to the homepage (graph.html) after login
-#         return 'Invalid username/password combination'
-#     else:
-#         return render_template('index.html')
+@app.route('/loginDoc', methods=['GET', 'POST'])
+def loginDoc():
+    if request.method == 'POST':
+        users = mongo.db.doctors
+        login_user = users.find_one({'name': request.form['username']})
+
+        if login_user:
+            input_password = hashlib.sha256(request.form['pass'].encode('utf-8')).hexdigest()
+            if input_password == login_user['password']:
+                session['username'] = request.form['username']
+                return redirect(url_for('homepage'))  # Redirect to the homepage (graph.html) after login
+        return 'Invalid username/password combination'
+    else:
+        return render_template('loginDOCTORS.html')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
