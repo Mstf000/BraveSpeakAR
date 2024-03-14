@@ -1,10 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>YouTube Uploader by CTRLQ.org</title>
+    <style>
+        body{
+            background-color: #4b5464;
+        }
+      .container {
+
+        max-width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="section">
+        <div class="row">
+          <div class="col s12">
+            <h4 class="center light-blue-text" style="font-size: 40px; font-family: bold;">BraveSpeakAR</h4>
+            <p class="center" style="color: white">Upload the movement video</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="video_title" type="text" class="validate">
+              <label for="video_title">Movement Title</label>
+            </div>
+            <div class="input-field col m6 s12">
+              <input id="video_tags" type="text" class="validate">
+              <label for="video_tags">Movement Tags</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="video_description" type="text" class="validate">
+              <label for="video_description">Movement Description</label>
+            </div>
+            <div class="input-field col m6 s12">
+              <select id="video_category">
+                <option value="" disabled selected style="color: white">Choose Movement category</option>
+                <option value="1">Film &amp; Animation</option> <option value="2">Autos &amp; Vehicles</option> <option value="10">Music</option> <option value="15">Pets &amp; Animals</option> <option value="17">Sports</option> <option value="19">Travel &amp; Events</option><option value="20">Gaming</option><option value="22">People &amp; Blogs</option><option value="23">Comedy</option><option value="24">Entertainment</option><option value="25">News &amp; Politics</option><option value="26">Howto &amp; Style</option><option value="27">Education</option><option value="28">Science &amp; Technology</option><option value="29">Nonprofits &amp; Activism</option>
+              </select>
+            </div>
+            <div class="input-field col m6 s12">
+              <select id="video_privacy">
+                <option value="" disabled selected style="color:white">privacy</option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+              </select>
+            </div>
+
+            <div class="file-field input-field col s12">
+              <div class="btn">
+                <span>Video</span>
+                <input type="file" accept="video/*">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Click to select and upload any video file">
+              </div>
+            </div>
+
+            <div class="input-field col m4 s12">
+              <a href="#" id='btnUpload' onclick="uploadVideo(); return false;" class="waves-effect waves-light btn-large"><i class="material-icons right">video_library</i>Upload Video</a>
+            </div>
+
+            <div class="input-field col m8 s12">
+              <p class="left-align">
+                <span id="message"></span>
+                <span id="progress" style="display:none">
+                  <span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> KB)
+                </span>
+              </p>
+            </div>
+
+          </div>
+        </form>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+          <a class="btn-floating btn-large red" href="http://www.labnol.org/" target="_blank" title="YouTube Uploader Support">
+            <i class="large material-icons">live_help</i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+    <script>
+
+      var $message,
+          $progress,
+          $btn
+
+      function toggleUpload(status) {
+        if (status)
+          $btn.removeClass("disabled");
+        else
+          $btn.addClass("disabled");
+      }
+
+      $(document).ready(function() {
+        $('select').material_select();
+        $progress = $('#progress');
+        $btn = $('#btnUpload');
+      });
+
+      function uploadVideo() {
+        hideProgress();
+        $message.html("Uploading video, please wait..");
+        var uploadVideo = new UploadVideo();
+        uploadFile($('#file').get(0).files[0]);
+      }
+
+      function hideProgress() {
+        $progress.hide();
+      }
+
+      function showProgress() {
+        $message.html("");
+        $progress.show();
+      }
+
+    </script>
+
+  </body>
+
 </html>

@@ -1,24 +1,3 @@
-{#{% extends "layout.html" %}#}
-{#{% block body %} #}
-{#<div class="container">#}
-{#    <div class="row">#}
-{#        <div class="col-md-4 col-md-offset-4">#}
-{#            <form method=POST action="{{ url_for('register') }}">#}
-{#                <div class="form-group">#}
-{#                    <label for="exampleInputEmail1">Username</label>#}
-{#                    <input type="text" class="form-control" name="username" placeholder="Username">#}
-{#                </div>#}
-{#                <div class="form-group">#}
-{#                    <label for="exampleInputPassword1">Password</label>#}
-{#                    <input type="password" class="form-control" name="pass" placeholder="Password">#}
-{#                </div>#}
-{#                <button type="submit" class="btn btn-primary btn-block">Register</button>#}
-{#            </form>#}
-{#            <br>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}
 
 <body class="align">
     <style>
@@ -255,6 +234,7 @@ p {
             <use xlink:href="#icon-lock"></use>
           </svg><span class="hidden">Password</span></label>
         <input id="login__password" type="password" name="pass" class="form__input" placeholder="Password" required>
+          <input type="hidden" value="{{ userType }}"  id="login__username" type="text" name="userType" class="form__input">
       </div>
 
       <div class="form__field">
@@ -263,7 +243,13 @@ p {
 
     </form>
 
-    <p class="text--center">Already a member? <a href="{{ url_for('login') }}">Sign In here</a> <svg class="icon">
+    <p class="text--center">
+        {% if userType == 'doctor' %}
+             Already a member? <a href="{{ url_for('getDocLogin') }}">Sign In here</a>
+        {% elif userType == 'patient' %}
+            Already a member? <a href="{{ url_for('getPatientLogin') }}">Sign In here</a>
+        {% endif %}
+         <svg class="icon">
       </svg></p>
 
   </div>

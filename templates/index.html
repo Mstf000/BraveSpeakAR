@@ -1,5 +1,9 @@
 
 <body class="align">
+{#    {% if userType %}#}
+{#        <h2>{{ userType }}</h2>#}
+{#    {% endif %}#}
+
     <style>
         @use postcss-preset-env {
   stage: 0;
@@ -220,6 +224,7 @@ p {
     </style>
   <div class="grid">
     <h1 class="title">BraveSpeakAR</h1>
+
     <form method=POST action="{{ url_for('login') }}" class="form login">
 
       <div class="form__field">
@@ -227,6 +232,7 @@ p {
             <use xlink:href="#icon-user"></use>
           </svg><span class="hidden">Username</span></label>
         <input autocomplete="username" id="login__username" type="text" name="username" class="form__input" placeholder="Username" required>
+          <input type="hidden" value="{{ userType }}"  id="login__username" type="text" name="userType" class="form__input">
       </div>
 
       <div class="form__field">
@@ -242,7 +248,13 @@ p {
 
     </form>
 
-    <p class="text--center">Not a member? <a href="{{ url_for('register') }}">Sign up here</a> <svg class="icon">
+    <p class="text--center">
+        {% if userType == 'doctor' %}
+             Not a doctor? <a href="{{ url_for('getDocRegister') }}">Sign up here</a>
+        {% elif userType == 'patient' %}
+            Not a patient? <a href="{{ url_for('getPatientRegister') }}">Sign up here</a>
+        {% endif %}
+        <svg class="icon">
 
       </svg></p>
 

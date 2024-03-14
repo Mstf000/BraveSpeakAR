@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Interactive Cards</title>
+
     <style>
                 :root {
           --card-height: 300px;
@@ -137,9 +138,9 @@
 <body>
 
     <!-- Your HTML code --><div class="page-title">BraveSpeakAR</div> <!-- Here is your new title -->
-        <a href="{{ url_for('loginDoc') }}" alt="Doctor" target="_blank">
+        <a href="{{ url_for('getDocLogin') }}" alt="Doctor">
           <div class="card">
-            <div class="title-above">Doctor</div>
+            <div class="title-above" style="font-weight: bold">Doctor</div>
             <div class="wrapper">
               <img src="https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1710201600&semt=sph" class="cover-image" />
             </div>
@@ -147,9 +148,9 @@
           </div>
         </a>
 
-        <a href="{{ url_for('login') }}" alt="Patient" target="_blank">
+        <a href="{{ url_for('getPatientLogin') }}" alt="Patient">
           <div class="card">
-            <div class="title-above">Patient</div>
+            <div class="title-above" style="font-weight: bold">Patient</div>
             <div class="wrapper">
               <img src="https://jacksonvillefreepress.com/wp-content/uploads/2016/06/StressedBlackMan.jpg" class="cover-image" />
             </div>
