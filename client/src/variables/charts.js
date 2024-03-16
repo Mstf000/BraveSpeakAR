@@ -79,20 +79,22 @@ let chartExample1 = {
     gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
+    const data = [];
+    data[0]=100;
     return {
       labels: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
+        "Session 1",
+        "Session 2",
+        "Session 3",
+        "Session 4",
+        "Session 5",
+        "Session 6",
+        "Session 7",
+        "Session 8",
+        "Session 9",
+        "Session 10",
+        "Session 11",
+        "Session 12",
       ],
       datasets: [
         {
@@ -110,7 +112,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+          data: [data[0], 91, 80, 65, 60, 57, 56, 40, 30, 24, 23, 10],
         },
       ],
     };
