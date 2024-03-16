@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS Variables */
+        :root {
+            --rules-w: 0.6em;
+            --rules-h: 1.25em;
+        }
+
+        body {
+            min-height: 200px;
+            height: 100vh;
+            position: relative;
+            background-color: #222;
+            overflow: hidden;
+        }
+
+        div {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #rules {
+            width: 16em;
+            height: 9.6em;
+            margin-left: calc(-8em); /* Centering based on the width */
+            margin-top: calc(-4.8em); /* Centering based on the height */
+            background: radial-gradient(circle, #555 50%, transparent 50.2%) .5em .4em / .8em .8em,
+                        radial-gradient(circle, #555 50%, transparent 50.2%) 1.3em .4em / .8em .8em,
+                        radial-gradient(circle, #555 50%, transparent 50.2%) 2.1em .4em / .8em .8em,
+                        linear-gradient(#333, #333) 0 0 / 100% 1.5em;
+            background-repeat: no-repeat;
+            border-radius: 0.6em;
+            box-shadow: 0 0 0 0.1em rgba(255, 255, 255, 0.2),
+                        0 1em 1.5em -0.6em rgba(0, 0, 0, 0.7),
+                        0 0.6em 0.5em -0.6em rgba(0, 0, 0, 0.5),
+                        0 0 0 40em mediumpurple;
+        }
+
+        #rules::before,
+        #rules::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: calc(1.45 * var(--rules-h));
+            animation: 7s infinite linear;
+            z-index: -1;
+        }
+
+        #rules::before {
+            width: 100%;
+            height: 500%;
+            left: var(--rules-w);
+            font-family: 'Courier New', mono;
+            color: limegreen;
+            white-space: pre-wrap;
+            text-align: left;
+            line-height: 1.25;
+            animation-name: rulesText;
+            /* Content needs to be manually escaped for proper display in HTML */
+            content: 'the web rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules \\A   css rules \\A   html rules';
+        }
+
+        #rules::after {
+            width: calc(41 * var(--rules-w));
+            height: calc(10 * var(--rules-h));
+            left: calc(-24 * var(--rules-w));
+            background: linear-gradient(to top, limegreen .06em, transparent .06em) right calc(13 * var(--rules-w)) top 0 / var(--rules-w) var(--rules-h),
+                        linear-gradient(#222, #222) right top / calc(14 * var(--rules-w)) var(--rules-h),
+                        linear-gradient(#222, #222) 0 calc(2 * var(--rules-h)) / calc(13 * var(--rules-w)) 100%,
+                        linear-gradient(#222, #222) calc(13 * var(--rules-w)) var(--rules-h) / 100% 100%;
+            background-repeat: no-repeat;
+            animation-name: rulesPrinting;
+        }
+
+        @keyframes rulesPrinting {
+            /* Add your animation keyframes, replacing LESS variables with the proper CSS variables */
+        }
+
+        @keyframes rulesText {
+            /* Add your animation keyframes, replacing LESS variables with the proper CSS variables */
+        }
+
+    </style>
+    <title>Fixed HTML and CSS</title>
+</head>
+<body>
+    <div id="rules"></div>
+</body>
+</html>

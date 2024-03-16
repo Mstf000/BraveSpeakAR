@@ -97,12 +97,27 @@
                         users.forEach(user => {
                             this.dataTable.row.add([
                                 user.id,
-                                '<a href="#">' + user.name + '</a>',
+                                `<a href="#" @click.prevent="showUserData(${user.id})">${user.name}</a>`, // Use event handler
                                 user.email
                             ]).draw(false);
                         });
+
                     })
                     .catch(error => console.error('Error fetching users:', error));
+                },
+                showUserData(userId) {
+                    // Example with client-side data
+                    const userData = this.findUserDataById(userId); // Implement this based on your data structure
+                    // Update your chart or page elements with userData
+
+                    // If you need to fetch from server
+                    fetch(`/get_user_data?userId=${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Update your chart or page elements with fetched data
+                            this.updateChart(data); // Implement this method
+                        })
+                        .catch(error => console.error('Error fetching user data:', error));
                 }
             },
             mounted() {

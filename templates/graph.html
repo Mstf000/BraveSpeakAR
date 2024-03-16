@@ -363,85 +363,96 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
 {##}
 {#<!DOCTYPE html>#}
 {#<html lang="en">#}
 {#<head>#}
 {#    <meta charset="UTF-8">#}
-{#    <title>Animated Graph</title>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Dashboard Summary</title>#}
 {#    <style>#}
-{#        html {#}
-{#          height: 100%;#}
-{#          background: -moz-linear-gradient(-45deg, #de437d 0%, #5b44b9 100%);#}
-{#          background: -webkit-linear-gradient(-45deg, #de437d 0%,#5b44b9 100%);#}
-{#          background: linear-gradient(135deg, #de437d 0%,#5b44b9 100%);#}
-{#          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#de437d', endColorstr='#5b44b9',GradientType=1);#}
-{#        }#}
+{#        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');#}
 {##}
 {#        body {#}
-{#          font-family: 'open sans', sans-serif;#}
-{#          font-size: 3rem;#}
-{#          background-size: cover;#}
-{#          height: 100%;#}
+{#            font-family: 'Nunito', sans-serif;#}
+{#            color: #676767;#}
+{#            background-color: #1e1e1e;#}
 {#        }#}
 {##}
-{#        svg {#}
-{#          margin: 0 auto;#}
-{#          text-align: center;#}
-{#          width: 100%;#}
-{#          padding-top: 40px;#}
+{#        .bg-card {#}
+{#            background-color: #171717;#}
+{#            border-radius: 10px; /* Added for better card appearance */#}
+{#            margin-bottom: 20px; /* Added for spacing between cards */#}
+{#            padding: 20px; /* Added for spacing within cards */#}
 {#        }#}
 {##}
-{#        polyline {#}
-{#          stroke-dasharray: 1000;#}
-{#          stroke-dashoffset: 1000;#}
-{#          animation: dash 5s ease-in forwards;#}
-{#          animation-iteration-count: 10;#}
-{#          animation-direction: alternate;#}
+{#        .text-white {#}
+{#            color: #fff;#}
 {#        }#}
 {##}
-{#        @keyframes dash {#}
-{#          to {#}
-{#            stroke-dashoffset: 0;#}
-{#          }#}
+{#        ul {#}
+{#            list-style-type: none; /* Removes default bullet points */#}
+{#            padding: 0; /* Removes default padding */#}
 {#        }#}
 {##}
-{#        p {#}
-{#          font-size: 2rem;#}
-{#          text-align: center;#}
-{#          color: #efefef;#}
-{#        }#}
-{#        .name {#}
-{#          font-size: .8rem;#}
-{#          font-weight: light;#}
+{#        ul li {#}
+{#            margin-bottom: 10px; /* Adds spacing between list items */#}
 {#        }#}
 {#    </style>#}
 {#</head>#}
 {#<body>#}
-{#    <div class='title'>#}
-{#      <p>Animated with CSS</p>#}
-{#      <p class="name">by Vanessa Pitchford Cristobal</p>#}
-{#    </div>#}
-{#    <svg class='container' width="529px" height="286px" viewBox="30 27 529 286" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
-{#        <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->#}
-{#        <desc>Created with Sketch.</desc>#}
-{#        <defs></defs>#}
-{#        <g id="graph-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(30.000000, 27.000000)">#}
-{#            <!-- Content of SVG -->#}
-{#            <!-- Insert the SVG elements you provided here -->#}
-{#        </g>#}
-{#    </svg>#}
+{#    <div id="root"></div>#}
+{#    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>#}
+{#    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>#}
+{#    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>#}
+{#    <script>#}
+{#        const { useState } = React;#}
+{#        const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } = Recharts;#}
 {##}
-{#    <p>Breathtaking Animated Graphs</p>#}
+{#        const graphData = [#}
+{#            'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'#}
+{#        ].map((i) => {#}
+{#            const revenue = 500 + Math.random() * 2000;#}
+{#            const expectedRevenue = Math.max(revenue + (Math.random() - 0.5) * 2000, 0);#}
+{#            return { name: i, revenue, expectedRevenue, sales: Math.floor(Math.random() * 500) };#}
+{#        });#}
+{##}
+{#        const Countrydata = [#}
+{#            { name: 'USA', rise: true, value: 21942.83, id: 1 },#}
+{#            { name: 'Ireland', rise: false, value: 19710.0, id: 2 },#}
+{#            { name: 'Ukraine', rise: false, value: 12320.3, id: 3 },#}
+{#            { name: 'Sweden', rise: true, value: 9725.0, id: 4 },#}
+{#        ];#}
+{##}
+{#        const App = () => {#}
+{#            return (#}
+{#                <div className="flex flex-col items-center p-5">#}
+{#                    <div className="w-full md:w-1/2 lg:w-1/3 bg-card">#}
+{#                        <h2 className="text-white mb-4">Your Work Summary</h2>#}
+{#                        <ResponsiveContainer width="100%" height={300}>#}
+{#                            <LineChart data={graphData}>#}
+{#                                <CartesianGrid strokeDasharray="3 3" />#}
+{#                                <XAxis dataKey="name" />#}
+{#                                <YAxis />#}
+{#                                <Tooltip />#}
+{#                                <Line type="monotone" dataKey="revenue" stroke="#8884d8" />#}
+{#                                <Line type="monotone" dataKey="expectedRevenue" stroke="#82ca9d" />#}
+{#                            </LineChart>#}
+{#                        </ResponsiveContainer>#}
+{#                    </div>#}
+{#                    <div className="w-full md:w-1/2 lg:w-1/3 bg-card">#}
+{#                        <h2 className="text-white mb-4">Top Countries</h2>#}
+{#                        <ul>#}
+{#                            {Countrydata.map(({ name, value, id }) => (#}
+{#                                <li key={id} className="text-white my-2">{name}: ${value.toLocaleString()}</li>#}
+{#                            ))}#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            );#}
+{#        };#}
+{##}
+{#        ReactDOM.render(<App />, document.getElementById("root"));#}
+{#    </script>#}
 {#</body>#}
 {#</html>#}
