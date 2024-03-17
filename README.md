@@ -60,7 +60,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Mostafa Ameen - [@mostafa02527014](https://twitter.com/mostafa02527014)
+Mostafa Ameen - [@Mostafa Ameen](https://www.linkedin.com/in/mostafa-ameen-72511a1bb/)
 
 Project Link: [https://github.com/Mstf000/BraveSpeakAR](https://github.com/Mstf000/BraveSpeakAR)
 
