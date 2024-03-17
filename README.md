@@ -40,4 +40,32 @@ npm install
 # Start the development server
 npm start
 
-### Usage
+## Usage
+
+Provide instructions on how to use the system, including any login credentials needed, how to navigate the app, and how to track progress. Detail the main features and how users can access them within the app.
+
+## Contributing
+
+We welcome contributions to BraveSpeakAR! If you have suggestions for improvement or want to contribute to the project, please feel free to:
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+
+Your Name - [@your_twitter](https://twitter.com/your_twitter)
+
+Project Link: [https://github.com/Mstf000/BraveSpeakAR](https://github.com/Mstf000/BraveSpeakAR)
+
+## Acknowledgments
+
+- List any other supporting libraries or technologies used in the project.
+- Any individuals or projects that helped inspire your project.
+
