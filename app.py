@@ -199,7 +199,27 @@ def logout():
     session.pop('username', None)
     return jsonify({"message": "Logged out successfully"}), 200
 
-# Your other routes here...
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    users = mongo.db.users
+    user = {
+        'id': request.json.get('id', ''),
+        'username': request.json.get('username', ''),
+        'email': request.json.get('email', '')
+    }
+    try:
+        result = users.insert_one(user)
+        return jsonify({'msg': 'User added successfully', 'id': str(result.inserted_id)}), 201
+    except PyMongoError as e:
+        return jsonify({'error': 'Could not add user to the database', 'details': str(e)}), 500
+
+@app.route('/get_users', methods=['GET'])
+def get_users():
+    try:
+        users = list(mongo.db.users.find({}, {'_id': 0}))
+        return jsonify(users)
+    except PyMongoError as e:
+        return jsonify({'error': 'Could not retrieve users from the database', 'details': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
