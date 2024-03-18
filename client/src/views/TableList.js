@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   Card,
@@ -91,7 +92,11 @@ function Tables() {
                       <tr key={user.id}>
                         <td>{user.id}</td>
                         <td>{user.email}</td>
-                        <td>{user.username}</td>
+                        <td>
+                          <Link to={`/admin/dashboard/${user.username}`} className="user-link">
+                            {user.username}
+                          </Link>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

@@ -1,4 +1,4 @@
-
+import { useParams } from 'react-router-dom';
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -35,6 +35,7 @@ import {
 } from "variables/charts.js";
 
 function Dashboard(props) {
+  const { username } = useParams();
   const [bigChartData, setbigChartData] = React.useState("data1");
   const setBgChartData = (name) => {
     setbigChartData(name);
@@ -42,6 +43,10 @@ function Dashboard(props) {
   return (
     <>
       <div className="content">
+            <div>
+              <p style={{ fontSize: '25px', fontWeight: "bold"}}>{username} Dashboard</p>
+              {/* You can add more user-specific information and components here */}
+            </div>
         <Row>
           <Col xs="12">
             <Card className="card-chart">
