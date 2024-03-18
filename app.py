@@ -216,10 +216,31 @@ def add_user():
 @app.route('/get_users', methods=['GET'])
 def get_users():
     try:
-        users = list(mongo.db.users.find({}, {'_id': 0}))
+        # Removed the exclusion of '_id', so it will be included by default
+        users = list(mongo.db.users.find({}))
+        # Convert the users list with ObjectId to string, if necessary
+        for user in users:
+            user['_id'] = str(user['_id'])
         return jsonify(users)
     except PyMongoError as e:
         return jsonify({'error': 'Could not retrieve users from the database', 'details': str(e)}), 500
+
+
+def get_next_sequence(collection_name):
+    # Access your MongoDB database
+    db = mongo.db
+
+    # Increment the sequence number for the given collection
+    sequence_document = db.counters.find_one_and_update(
+        {'_id': collection_name},
+        {'$inc': {'seq': 1}},
+        upsert=True,  # Create the counter if it doesn't exist
+        return_document=True  # Return the updated document
+    )
+
+    # Return the new sequence number
+    return sequence_document['seq']
+
 
 if __name__ == '__main__':
     app.run(debug=True)

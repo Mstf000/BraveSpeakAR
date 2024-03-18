@@ -20,6 +20,7 @@ function Tables() {
     try {
       const response = await axios.get('http://localhost:5000/get_users');
       setUsers(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
       // Handle error appropriately in your UI
@@ -88,7 +89,7 @@ function Tables() {
                   <tbody>
                     {users.map(user => (
                       <tr key={user.id}>
-                        <td>{user.id}</td>
+                        <td>{user._id}</td>
                         <td>{user.username}</td>
                         <td>{user.email}</td>
                       </tr>

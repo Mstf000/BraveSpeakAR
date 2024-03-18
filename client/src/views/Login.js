@@ -99,7 +99,7 @@ const LoginSignup = () => {
             const data = await attemptLogin('patient', loginUser.username, loginUser.password); // Assuming 'patient' userType, change as needed
             console.log('Login success:', data);
             swal("Login succeeded", "", "success").then((value) => {
-                navigate('/admin'); // Redirect to HomePage after clicking OK in SweetAlert
+                navigate('/admin');
             });
             // Additional success handling
         } catch (error) {
