@@ -85,7 +85,9 @@ const LoginSignup = () => {
             try {
                 const data = await attemptSignup('patient', newUser.username, newUser.email, newUser.password); // Assuming 'patient' userType, change as needed
                 console.log('Signup success:', data);
-                swal("Account creation succeeded", "The account has been created, please login", "success");
+                swal("Account creation succeeded", "The account has been created, please login", "success").then((value) => {
+                navigate('/admin');
+            });
                 // Additional success handling
             } catch (error) {
                 swal("Account creation failed", error.message, "error");

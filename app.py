@@ -183,14 +183,31 @@ def register():
     if not username or not password:
         return jsonify({"error": "Missing username or password"}), 400
 
+    # Determine the correct collection based on userType
     model = mongo.db.doctors if userType == 'doctor' else users
     existing_user = model.find_one({'username': username})
 
     if existing_user is None:
         hashpass = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user_id = model.insert_one({'username': username, 'password': hashpass, 'email': email}).inserted_id
+
+        # Fetch the next user ID based on the collection
+        next_id = get_next_sequence('user')  # Use 'doctor' if userType is doctor
+
+        # Insert the new user with the auto-increment ID
+        user_id = model.insert_one({
+            'id': next_id,  # Store the auto-incremented ID
+            'username': username,
+            'password': hashpass,
+            'email': email
+        }).inserted_id
+
         session['username'] = username
-        return jsonify({"message": "User registered successfully", "username": username, "id": str(user_id)}), 201
+        return jsonify({
+            "message": "User registered successfully",
+            "username": username,
+            "id": str(user_id),
+            "autoIncrementID": next_id  # You might want to return this as well
+        }), 201
     else:
         return jsonify({"error": "Username already exists"}), 409
 
@@ -202,44 +219,51 @@ def logout():
 @app.route('/add_user', methods=['POST'])
 def add_user():
     users = mongo.db.users
+    username = request.json.get('username')
+    email = request.json.get('email')
+    password = request.json.get('password')
+
+    # Generate hashed password
+    hashpass = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    # Fetch the next user ID
+    next_id = get_next_sequence('user')  # Make sure 'user' aligns with your naming convention
+
+    # Prepare user document including the new auto-increment ID
     user = {
-        'id': request.json.get('id', ''),
-        'username': request.json.get('username', ''),
-        'email': request.json.get('email', '')
+        'id': next_id,  # Add the auto-increment ID
+        'username': username,
+        'email': email,
+        'password': hashpass
     }
+
     try:
+        # Insert new user with auto-increment ID
         result = users.insert_one(user)
-        return jsonify({'msg': 'User added successfully', 'id': str(result.inserted_id)}), 201
+        return jsonify({'msg': 'User added successfully', 'id': str(result.inserted_id), 'autoIncrementID': next_id}), 201
     except PyMongoError as e:
         return jsonify({'error': 'Could not add user to the database', 'details': str(e)}), 500
 
 @app.route('/get_users', methods=['GET'])
 def get_users():
     try:
-        # Removed the exclusion of '_id', so it will be included by default
-        users = list(mongo.db.users.find({}))
-        # Convert the users list with ObjectId to string, if necessary
-        for user in users:
-            user['_id'] = str(user['_id'])
+        users = list(mongo.db.users.find({}, {'_id': 0}))
         return jsonify(users)
     except PyMongoError as e:
         return jsonify({'error': 'Could not retrieve users from the database', 'details': str(e)}), 500
 
 
-def get_next_sequence(collection_name):
-    # Access your MongoDB database
-    db = mongo.db
 
-    # Increment the sequence number for the given collection
+def get_next_sequence(collection_name):
+    db = mongo.db
     sequence_document = db.counters.find_one_and_update(
         {'_id': collection_name},
         {'$inc': {'seq': 1}},
-        upsert=True,  # Create the counter if it doesn't exist
-        return_document=True  # Return the updated document
+        upsert=True,
+        return_document=True
     )
-
-    # Return the new sequence number
     return sequence_document['seq']
+
 
 
 if __name__ == '__main__':

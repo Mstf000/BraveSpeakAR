@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 function Tables() {
-  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [users, setUsers] = useState([]);
@@ -29,10 +29,10 @@ function Tables() {
 
   const addUser = async () => {
     try {
-      const user = { id, username, email };
+      const user = { username, email, password };
       await axios.post('http://localhost:5000/add_user', user);
       // Reset form and fetch updated users
-      setId('');
+      setPassword('');
       setName('');
       setEmail('');
       fetchUsers(); // Fetch all users again after adding a new one
@@ -58,16 +58,16 @@ function Tables() {
               <CardBody>
                 <div className="row">
                   <div className="col">
-                    <label>User ID</label>
-                    <input type="number" className="form-control" value={id} onChange={e => setId(e.target.value)} />
-                  </div>
-                  <div className="col">
                     <label>User name</label>
                     <input type="text" className="form-control" value={username} onChange={e => setName(e.target.value)} />
                   </div>
                   <div className="col">
-                    <label>User Email</label>
+                    <label>Email</label>
                     <input type="text" className="form-control" value={email} onChange={e => setEmail(e.target.value)} />
+                  </div>
+                  <div className="col">
+                    <label>Password</label>
+                    <input type="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} />
                   </div>
                 </div>
                 <button className="btn btn-info mt-2" onClick={addUser}>Add User</button>
@@ -82,16 +82,16 @@ function Tables() {
                   <thead className="text-primary">
                     <tr>
                       <th>User ID</th>
-                      <th>User Name</th>
                       <th>User Email</th>
+                      <th>User Name</th>
                     </tr>
                   </thead>
                   <tbody>
                     {users.map(user => (
                       <tr key={user.id}>
-                        <td>{user._id}</td>
-                        <td>{user.username}</td>
+                        <td>{user.id}</td>
                         <td>{user.email}</td>
+                        <td>{user.username}</td>
                       </tr>
                     ))}
                   </tbody>
