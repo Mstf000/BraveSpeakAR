@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert2';
 import {
   Card,
   CardHeader,
@@ -37,6 +38,13 @@ function Tables() {
       setName('');
       setEmail('');
       fetchUsers(); // Fetch all users again after adding a new one
+      swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: username+"'s Account Created",
+        showConfirmButton: false,
+        timer: 1500
+      });
     } catch (error) {
       console.error('Error adding user:', error);
       // Handle error appropriately in your UI
@@ -71,7 +79,7 @@ function Tables() {
                     <input type="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} />
                   </div>
                 </div>
-                <button className="btn btn-info mt-2" onClick={addUser}>Add User</button>
+                <button className="btn btn-info mt-2" onClick={addUser}>Add User </button>
               </CardBody>
             </Card>
             <Card>
