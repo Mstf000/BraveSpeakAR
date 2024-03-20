@@ -1,25 +1,10 @@
-/*!
+const getChartData = (userScore) => {
+  return {
+    data1: chartExample1.data1(null, userScore),
+    // Other chart data functions can be added here similarly
+  };
+};
 
-=========================================================
-* Black Dashboard React v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-// ##############################
-// // // Chart variables
-// #############################
-
-// chartExample1 and chartExample2 options
 let chart1_2_options = {
   maintainAspectRatio: false,
   legend: {
@@ -66,21 +51,19 @@ let chart1_2_options = {
   },
 };
 
-// #########################################
-// // // used inside src/views/Dashboard.js
-// #########################################
 let chartExample1 = {
-  data1: (canvas) => {
-    let ctx = canvas.getContext("2d");
 
+  data1: (canvas, userScore) => {
+    let ctx = canvas.getContext("2d");
+    // userScore = userScore !== undefined ? userScore : 0;
     let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
     gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
-    gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
-
-    const data = [];
-    data[0]=100;
+    gradientStroke.addColorStop(0, "rgba(150,104,110,0)"); //blue colors
+    // testing
+    // const data = [];
+    // data[0]=100;
     return {
       labels: [
         "Session 1",
@@ -93,12 +76,10 @@ let chartExample1 = {
         "Session 8",
         "Session 9",
         "Session 10",
-        "Session 11",
-        "Session 12",
       ],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Social Phobia Score",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -112,7 +93,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [data[0], 91, 80, 65, 60, 57, 56, 40, 30, 24, 23, 10],
+          data: [userScore, userScore, userScore, userScore, userScore, userScore, userScore, userScore, userScore,],
         },
       ],
     };
@@ -210,9 +191,6 @@ let chartExample1 = {
   options: chart1_2_options,
 };
 
-// #########################################
-// // // used inside src/views/Dashboard.js
-// #########################################
 let chartExample2 = {
   data: (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -249,9 +227,6 @@ let chartExample2 = {
   options: chart1_2_options,
 };
 
-// #########################################
-// // // used inside src/views/Dashboard.js
-// #########################################
 let chartExample3 = {
   data: (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -324,9 +299,6 @@ let chartExample3 = {
   },
 };
 
-// #########################################
-// // // used inside src/views/Dashboard.js
-// #########################################
 const chartExample4 = {
   data: (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -409,6 +381,7 @@ const chartExample4 = {
 };
 
 module.exports = {
+  getChartData,
   chartExample1, // in src/views/Dashboard.js
   chartExample2, // in src/views/Dashboard.js
   chartExample3, // in src/views/Dashboard.js
