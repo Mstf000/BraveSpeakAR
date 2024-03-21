@@ -25,22 +25,22 @@ import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 
 var routes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
-    component: <Dashboard />,
-    layout: "/admin",
-  },
   // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   rtlName: "الرموز",
-  //   icon: "tim-icons icon-atom",
-  //   component: <Icons />,
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   rtlName: "لوحة القيادة",
+  //   icon: "tim-icons icon-chart-pie-36",
+  //   component: <Dashboard />,
   //   layout: "/admin",
   // },
+  {
+    path: "/Icons",
+    name: "Homepage",
+    rtlName: "الرموز",
+    icon: "tim-icons icon-bank",
+    component: <Icons />,
+    layout: "/admin",
+  },
   // {
   //   path: "/map",
   //   name: "Map",

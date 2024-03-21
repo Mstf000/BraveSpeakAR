@@ -27,6 +27,9 @@ const API_URL = 'http://localhost:5000';
 function Dashboard(props) {
   const { username } = useParams();
   const [userScore, setUserScore] = useState(null);
+  const [userVoice, setUserVoice] = useState(null);
+  const [userMovements, setUserMovements] = useState(null);
+  const [userEmotions, setUserEmotions] = useState(null);
   const [bigChartData, setbigChartData] = useState('data1');
 
   const chartOptions = {
@@ -74,13 +77,51 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-    fetch(`${API_URL}/get_score/${username}`)
-      .then(response => response.json())
-      .then(data => {
-        setUserScore(data.score);
-      })
-      .catch(error => console.error('Error fetching user score:', error));
-  }, [username]);
+    const fetchData = async () => {
+        const urls = [
+            `${API_URL}/get_score/${username}`,
+            `${API_URL}/get_voice/${username}`,
+            `${API_URL}/get_movements/${username}`,
+            `${API_URL}/get_emotions/${username}`
+        ];
+
+        // Map through your URLs and convert each fetch into a promise
+        const requests = urls.map(async (url, index) => {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                // Depending on the index, set the appropriate state
+                switch(index) {
+                    case 0:
+                        setUserScore(data.score);
+                        break;
+                    case 1:
+                        setUserVoice(data.score);
+                        break;
+                    case 2:
+                        setUserMovements(data.score);
+                        break;
+                    case 3:
+                        setUserEmotions(data.score);
+                        break;
+                    default:
+                        // Handle any other cases or errors
+                        break;
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            console.log({ userScore, userVoice, userMovements, userEmotions });
+
+        });
+
+        // Await all requests
+        await Promise.all(requests);
+    };
+
+    fetchData();
+}, [username]); // Only re-run the effect if username changes
+
 
   const createChartData = (userScore) => {
     let gradientStroke1, gradientStroke2, gradientStroke3;
@@ -107,8 +148,8 @@ function Dashboard(props) {
         data1: {
             labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5", "Session 6", "Session 7", "Session 8", "Session 9", "Session 10"],
             datasets: [{
-                label: "Total Score",
-                data: [userScore, userScore - 5, userScore - 10, userScore - 15, userScore - 20, userScore - 20, userScore - 25, userScore - 30, userScore - 35, userScore - 40],
+                label: "Social Phobia Percentage",
+                data: [userScore, userScore - 15, userScore - 25, userScore - 30, userScore - 40, userScore - 50, userScore - 60, 30, 30, 26],
                 fill: true,
                 backgroundColor: gradientStroke1,
                 borderColor: "#1f8ef1",
@@ -126,10 +167,10 @@ function Dashboard(props) {
             options: chartOptions
         },
         data2: {
-            labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+            labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5", "Session 6", "Session 7", "Session 8", "Session 9", "Session 10"],
             datasets: [{
                 label: "Voice Stuttering Score",
-                data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
+                data: [2, 3, 5, 5, 6, 6.4, 6.9, 8, 9, 10],
                 fill: true,
                 backgroundColor: gradientStroke2,
                 borderColor: "#d048b6",
@@ -147,10 +188,10 @@ function Dashboard(props) {
             options: chartOptions
         },
         data3: {
-            labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+            labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5", "Session 6", "Session 7", "Session 8", "Session 9", "Session 10"],
             datasets: [{
-                label: "Profiled Movementes Score",
-                data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
+                label: "Profiled Movements Score",
+                data: [2, 3, 5, 5, 6, 6.4, 6.9, 8, 8.2, 8.2],
                 fill: true,
                 backgroundColor: gradientStroke2,
                 borderColor: "#d048b6",
@@ -168,10 +209,10 @@ function Dashboard(props) {
             options: chartOptions
         },
         data4: {
-            labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+            labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5", "Session 6", "Session 7", "Session 8", "Session 9", "Session 10"],
             datasets: [{
                 label: "Emotions Score",
-                data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
+                data: [2, 3, 5, 5, 6, 6.4, 6.9, 8, 8.2, 8.2],
                 fill: true,
                 backgroundColor: gradientStroke2,
                 borderColor: "#d048b6",
@@ -203,7 +244,7 @@ function Dashboard(props) {
     <>
       <div className="content">
         <div>
-          <p style={{ fontSize: '25px', fontWeight: "bold" }}>{username}'s Dashboard {userScore}</p>
+          <p style={{ fontSize: '25px', fontWeight: "bold" }}>{username}'s Dashboard</p>
         </div>
         <Row>
           <Col xs="12">
@@ -211,8 +252,8 @@ function Dashboard(props) {
               <CardHeader>
                 <Row>
                   <Col className="text-left" sm="6">
-                    <h5 className="card-category">Social Phobia Patients</h5>
-                    <CardTitle tag="h2">Performance</CardTitle>
+                    <h5 className="card-category">Last Session Social Phobia Percentage 26%</h5>
+                    <CardTitle tag="h2">Social Phobia Progress</CardTitle>
                   </Col>
                   <Col sm="6">
                     <ButtonGroup className="btn-group-toggle float-right" data-toggle="buttons">
@@ -224,7 +265,7 @@ function Dashboard(props) {
                         size="sm"
                         onClick={() => setBgChartData("data1")}
                       >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
+                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">{username}</span>
                         <span className="d-block d-sm-none"><i className="tim-icons icon-single-02" /></span>
                       </Button>
                       {/* Add more buttons here for different charts */}
@@ -247,9 +288,9 @@ function Dashboard(props) {
                    <Col lg="4">
             <Card className="card-chart" style={{width: '400px'}}>
               <CardHeader>
-                <h5 className="card-category">Total Shipments</h5>
+                <h5 className="card-category">Last Session Score 10</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-bell-55 text-info" /> 763,215
+                  <i className="tim-icons icon-volume-98" /> Voice Stuttering
                 </CardTitle>
               </CardHeader>
               <CardBody>
@@ -262,9 +303,9 @@ function Dashboard(props) {
           <Col lg="4">
             <Card className="card-chart" style={{width: '400px'}}>
               <CardHeader>
-                <h5 className="card-category">Daily Sales</h5>
+                <h5 className="card-category">Last Session Score 8.7</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-delivery-fast text-primary" /> 3,500€
+                  <i className="tim-icons icon-user-run" /> Profiled Movements
                 </CardTitle>
               </CardHeader>
               <CardBody>
@@ -277,9 +318,9 @@ function Dashboard(props) {
           <Col lg="4">
             <Card className="card-chart" style={{width: '400px'}}>
               <CardHeader>
-                <h5 className="card-category">Completed Tasks</h5>
+                <h5 className="card-category">Last Session Score 8.2</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-send text-success" /> 12,100K
+                  <i className="tim-icons icon-satisfied" /> Emotions
                 </CardTitle>
               </CardHeader>
               <CardBody>

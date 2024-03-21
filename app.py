@@ -123,6 +123,34 @@ def get_score(username):
     else:
         return jsonify({"error": "User not found"}), 404
 
+@app.route('/get_voice/<username>', methods=['GET'])
+def get_voice(username):
+    user_collection = mongo.db.users  # Assuming you store user scores in the 'users' collection
+    user = user_collection.find_one({"username": username})
+    if user:
+        return jsonify({"username": username, "voice": user.get("voice", 0)}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+@app.route('/get_movements/<username>', methods=['GET'])
+def get_movements(username):
+    user_collection = mongo.db.users  # Assuming you store user scores in the 'users' collection
+    user = user_collection.find_one({"username": username})
+    if user:
+        return jsonify({"username": username, "movements": user.get("movements", 0)}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+@app.route('/get_emotions/<username>', methods=['GET'])
+def get_emotions(username):
+    user_collection = mongo.db.users  # Assuming you store user scores in the 'users' collection
+    user = user_collection.find_one({"username": username})
+    if user:
+        return jsonify({"username": username, "emotions": user.get("emotions", 0)}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
 
 def get_next_sequence(collection_name):
     db = mongo.db
