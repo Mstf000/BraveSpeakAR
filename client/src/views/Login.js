@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import swal2 from 'sweetalert2';
 
 import '../assets/css/Login.css'; // Assuming you saved your CSS here
 
@@ -65,15 +66,15 @@ const LoginSignup = () => {
     const validateForm = () => {
         // Basic validation, expand according to your needs
         if (!newUser.username || newUser.username.length < 5 || newUser.username.length > 15) {
-            swal("Validation error", "Username must be between 5 and 15 characters.", "error");
+            swal2("Validation error", "Username must be between 5 and 15 characters.", "error");
             return false;
         }
         if (!validateEmail(newUser.email)) {
-            swal("Validation error", "Please enter a valid email.", "error");
+            swal2("Validation error", "Please enter a valid email.", "error");
             return false;
         }
         if (!newUser.password || newUser.password.length < 7 || newUser.password.length > 14) {
-            swal("Validation error", "Password must be between 7 and 14 characters.", "error");
+            swal2("Validation error", "Password must be between 7 and 14 characters.", "error");
             return false;
         }
         return true;
@@ -85,12 +86,26 @@ const LoginSignup = () => {
             try {
                 const data = await attemptSignup('patient', newUser.username, newUser.email, newUser.password); // Assuming 'patient' userType, change as needed
                 console.log('Signup success:', data);
-                swal("Account creation succeeded", "The account has been created, please login", "success").then((value) => {
-                navigate('/admin');
-            });
+                swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Account Created Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then((value) => {
+                      navigate('/admin/Icons');
+                });
                 // Additional success handling
             } catch (error) {
-                swal("Account creation failed", error.message, "error");
+               swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Register Failed",
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then((value) => {
+                      navigate('/login');
+                });
             }
         }
     };
@@ -100,12 +115,29 @@ const LoginSignup = () => {
         try {
             const data = await attemptLogin('patient', loginUser.username, loginUser.password); // Assuming 'patient' userType, change as needed
             console.log('Login success:', data);
-            swal("Login succeeded", "", "success").then((value) => {
-                navigate('/admin');
+            // swal("Login succeeded", "", "success").then((value) => {
+            //     navigate('/admin/Icons');
+            // });
+            swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Login Succeeded",
+                showConfirmButton: false,
+                timer: 1500
+              }).then((value) => {
+                  navigate('/admin/Icons');
             });
             // Additional success handling
         } catch (error) {
-            swal("Login failed", error.message, "error");
+            swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Login Failed",
+                showConfirmButton: false,
+                timer: 1500
+              }).then((value) => {
+                  navigate('/login');
+            });
         }
     };
 

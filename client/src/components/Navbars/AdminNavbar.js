@@ -1,23 +1,8 @@
-/*!
 
-=========================================================
-* Black Dashboard React v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import { Link } from 'react-router-dom';
 
 // reactstrap components
 import {
@@ -90,15 +75,39 @@ function AdminNavbar(props) {
             <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
               {props.brandText}
             </NavbarBrand>
+
           </div>
+
           <NavbarToggler onClick={toggleCollapse}>
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
           </NavbarToggler>
-          <Collapse navbar isOpen={collapseOpen}>
 
+          <Collapse navbar isOpen={collapseOpen}>
+            <Nav className="ml-auto" navbar>
+              <UncontrolledDropdown nav>
+                <DropdownToggle caret color="default" data-toggle="dropdown" nav>
+                  <div className="notification d-none d-lg-block d-xl-block" />
+                  <i className="tim-icons icon-button-power" />
+                  <p className="d-lg-none">Notifications</p>
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-navbar" right tag="ul">
+                  <NavLink tag="li">
+                    <Link to="/login" className="dropdown-item">
+                      LOGOUT
+                    </Link>
+                  </NavLink>
+                  {/*<NavLink tag="li">*/}
+                  {/*  <Link to="/login" className="dropdown-item">*/}
+                  {/*    LOGOUT*/}
+                  {/*  </Link>*/}
+                  {/*</NavLink>*/}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
           </Collapse>
+
         </Container>
       </Navbar>
       <Modal
@@ -113,7 +122,9 @@ function AdminNavbar(props) {
             className="close"
             onClick={toggleModalSearch}
           >
+
             <i className="tim-icons icon-simple-remove" />
+
           </button>
         </ModalHeader>
       </Modal>
