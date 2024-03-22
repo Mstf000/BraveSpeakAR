@@ -4,7 +4,7 @@ from flask_cors import CORS
 from bson.json_util import dumps
 from pymongo.errors import PyMongoError
 import hashlib
-
+#so far so good 22/3/2024
 app = Flask(__name__)
 app.secret_key = 'mysecret'
 app.config['MONGO_URI'] = 'mongodb+srv://mstf:mstf123@cluster0.pfzhwqr.mongodb.net/grad'
