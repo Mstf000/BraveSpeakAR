@@ -15,6 +15,8 @@ import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
+import CheckList from "./views/CheckList";
+import Checklist from "./views/CheckList";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -25,6 +27,7 @@ root.render(
         <Routes>
           <Route path="/admin/dashboard/:username" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/CheckList" element={<Checklist />} />
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route
             path="*"
