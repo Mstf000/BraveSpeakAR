@@ -27,7 +27,7 @@ root.render(
         <Routes>
           <Route path="/admin/dashboard/:username" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/CheckList" element={<Checklist />} />
+          {/*<Route path="/CheckList" element={<Checklist />} />*/}
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route
             path="*"
