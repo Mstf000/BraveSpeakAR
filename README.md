@@ -49,7 +49,7 @@ What you need to install the software:
 
 ```sh
 # Clone the repository
-git clone https://github.com/mazen251/BraveSpeakAR-Website.git
+git clone https://github.com/Mstf000/BraveSpeakAR.git
 cd BraveSpeakAR
 
 # Set up the Python environment
