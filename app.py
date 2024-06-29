@@ -169,7 +169,7 @@ if __name__ == '__main__':
 
 
 
-# after grad modifications 2
+# after grad modifications 2.0
 
 
 
